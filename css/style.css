@@ -6,6 +6,7 @@
   src: local("☺"), url("fonts/MISTRAL.woff") format("woff"), url("fonts/MISTRAL.ttf") format("truetype"), url("fonts/MISTRAL.svg") format("svg");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 * {
   padding: 0;
@@ -1725,6 +1726,65 @@ html, body {
   }
 }
 @media (max-width: 980px) {
+  .linkName::after,
+.linkName::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    width: 10px;
+    height: 2px;
+    background-color: black;
+    top: 15px;
+    -webkit-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+  }
+
+  .linkName::after {
+    content: "";
+    -webkit-transform: rotate(-40deg);
+            transform: rotate(-40deg);
+    left: 8px;
+    top: 14px;
+  }
+
+  .linkName::before {
+    content: "";
+    -webkit-transform: rotate(40deg);
+            transform: rotate(40deg);
+    left: 0;
+    top: 14px;
+  }
+
+  .linkName.active::before,
+.linkName.active::after {
+    content: "";
+    width: 10px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.493);
+    top: 15px;
+  }
+
+  .linkName.active::after {
+    content: "";
+    width: 10px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.493);
+    top: 12px;
+    -webkit-transform: rotate(40deg);
+            transform: rotate(40deg);
+  }
+
+  .linkName.active::before {
+    content: "";
+    width: 10px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.521);
+    top: 18px;
+    left: 8px;
+    -webkit-transform: rotate(-40deg);
+            transform: rotate(-40deg);
+  }
+
   .navigation__body {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1806,71 +1866,6 @@ html, body {
 
   .linkName {
     margin-bottom: 15px;
-  }
-}
-@media (max-width: 980px) {
-  .linkName::after,
-.linkName::before {
-    content: "";
-    position: absolute;
-    top: 4px;
-    width: 10px;
-    height: 2px;
-    background-color: black;
-    top: 15px;
-    -webkit-transition: 0.3s all ease;
-    transition: 0.3s all ease;
-  }
-}
-@media (max-width: 980px) {
-  .linkName::after {
-    content: "";
-    -webkit-transform: rotate(-40deg);
-            transform: rotate(-40deg);
-    left: 8px;
-    top: 14px;
-  }
-}
-@media (max-width: 980px) {
-  .linkName::before {
-    content: "";
-    -webkit-transform: rotate(40deg);
-            transform: rotate(40deg);
-    left: 0;
-    top: 14px;
-  }
-}
-@media (max-width: 980px) {
-  .linkName.active::before,
-.linkName.active::after {
-    content: "";
-    width: 10px;
-    height: 2px;
-    background-color: rgba(0, 0, 0, 0.493);
-    top: 15px;
-  }
-}
-@media (max-width: 980px) {
-  .linkName.active::after {
-    content: "";
-    width: 10px;
-    height: 2px;
-    background-color: rgba(0, 0, 0, 0.493);
-    top: 12px;
-    -webkit-transform: rotate(40deg);
-            transform: rotate(40deg);
-  }
-}
-@media (max-width: 980px) {
-  .linkName.active::before {
-    content: "";
-    width: 10px;
-    height: 2px;
-    background-color: rgba(0, 0, 0, 0.521);
-    top: 18px;
-    left: 8px;
-    -webkit-transform: rotate(-40deg);
-            transform: rotate(-40deg);
   }
 }
 @media (max-width: 400px) {
