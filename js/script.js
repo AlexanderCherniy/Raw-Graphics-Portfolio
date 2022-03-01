@@ -40,21 +40,32 @@ let body = document.getElementsByTagName('body')[0]//заблокировать 
 let menu = document.getElementById('menu')
 let burger = document.getElementById('burger')
 burger.onclick = function(event){
-    burger.classList.toggle('active')// добавляем или убираем классы по нажатию
-    menu.classList.toggle('active')
-    body.classList.toggle('lock')
+    burger.classList.toggle('activeBurger')// добавляем или убираем классы по нажатию
+    menu.classList.toggle('activeBurger')
+    body.classList.toggle('lockBurger')
     let linkHeader = document.querySelectorAll('.link')
     for(let i = 0;i<linkHeader.length;i++){
         linkHeader[i].onmouseup = ()=>{
-            burger.classList.remove('active')
-            menu.classList.remove('active')
-            body.classList.remove('lock')
+            burger.classList.remove('activeBurger')
+            menu.classList.remove('activeBurger')
+            body.classList.remove('lockBurger')
         }
     }
 }
+//исправление анимации
+
+if(document.documentElement.clientWidth < 981){
+    problemSpoiler.classList.remove('animationRigth')
+    problemSpoiler.classList.add('animationLeft')
+}
 
 //spoiler
-if(screen.width < 981) {
+if(document.documentElement.clientWidth > 981){
+    document.querySelector('.newsletter__email').style.border = '1px rgba(0,0,0,0.09) solid'
+} else{
+    document.querySelector('.newsletter__email').style.border = 'none'
+}
+if(document.documentElement.clientWidth < 981) {
    let navName = document.querySelectorAll('.linkName'); // получаешь объект при нажатии на который будет появляться контент
    navName.forEach(navName =>{ // цикл чтобы повесить событие для каждого
        navName.addEventListener('click', event =>{ // вешаем событие
@@ -67,12 +78,14 @@ if(screen.width < 981) {
         let navUls = navName.nextElementSibling; // получаем следующий элемент
         if(navName.classList.contains('active')){ //проверяем есть ли класс active
             navUls.style.maxHeight = navUls.scrollHeight + 'px';  //получаем нужную высоту контента
+            document.querySelector('.newsletter__email').style.border = '1px rgba(0,0,0,0.09) solid'
         }else{
             navUls.style.maxHeight = 0; // обнуляем если нет active
+            document.querySelector('.newsletter__email').style.border = 'none'
         }
        });
    });
-}
+};
 
 //links to objects
 
@@ -128,3 +141,43 @@ document.querySelectorAll('.button__about')[0].onclick = function (){
 		behavior:'smooth',
     })
 }
+
+
+//animation
+
+const animItems = document.querySelectorAll('.anim-items');
+if(animItems.length>0){
+    window.addEventListener('scroll',showAnimate)
+    function showAnimate(){
+        for(let i = 0;i<animItems.length;i++){
+            const animItem = animItems[i];
+            const animItemHeight = animItem.offsetHeight;
+            const animItemOfSet = offset(animItem).top;
+            const animStart = 3;
+
+            let animItemPoint = window.innerHeight - animItemHeight / animStart
+
+            if(animItemHeight > window.innerHeight){
+                animItemPoint = window.innerHeight - window.innerHeight / animStart
+            }
+
+            if((pageYOffset > animItemOfSet - animItemPoint) && pageYOffset < (animItemOfSet+animItemHeight)){
+                animItem.classList.add('active')
+            }else{
+                if(!animItem.classList.contains('anim-no-hide')){
+                    animItem.classList.remove('active')
+                }
+            }
+        }
+    }
+    function offset(element){
+        const rect = element.getBoundingClientRect(),
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        return {top:rect.top + scrollTop,left:rect.left + scrollLeft}
+    }
+    setTimeout(() => {
+        showAnimate();
+    },300);
+}
+
