@@ -39,10 +39,11 @@ html,body{
     padding: 15px;
     .fullscreen__img{
         position: absolute;
+        display: flex;
         top: 0;
         left: 0;
         z-index: 1;
-        height: 100%;
+        min-height: 100vh;
         background-size: cover;
         opacity: 0.2;
     }
@@ -64,9 +65,24 @@ html,body{
     margin: 0 auto;
 }
 .header__logo {
-    
+    transform: translate(-160%,0);
+    opacity: 0;
+    transition: 0.8s all ease 0s;
+    &.active{
+        transform: translate(0,0px);
+        opacity: 1;
+        transition: 1s all ease 0.8s;
+    }
 }
 .header___body {
+    transform: translate(160%,0);
+    opacity: 0;
+    transition: 0.8s all ease 0s;
+    &.active{
+        transform: translate(0,0px);
+        opacity: 1;
+        transition: 1s all ease 0.8s;
+    }
 }
 .header__menu {
     display: flex;
@@ -94,10 +110,30 @@ html,body{
 .fullscreen__main {
     padding: 260px 0px;
 }
+
+.anim-show{
+    transform: translate(120%,0);
+    opacity: 0;
+    transition: 0.5s all ease 0s;
+}
+.anim-show.active,
+.active .anim-show{
+    opacity: 1;
+    transform: translate(0,0)
+}
+
+
 .fullscreen__minititle {
     @include styleText(28px,22px ,400 ,'Roboto Slab');
     padding-bottom: 25px;
     color: #323232;
+    transform: translate(0,150%);
+    opacity: 0;
+    transition: 0.6s all ease;
+    &.active{
+        transform: translate(0,0px);
+        opacity: 1;
+    }
     & span{
         color: #00b894;
     }
@@ -106,16 +142,100 @@ html,body{
     @include styleText(48px,22px ,700 ,'Roboto Slab');
     color: #323232;
     padding-bottom: 60px;
+    transform: translate(0,140%);
+    opacity: 0;
+    transition: 0.8s all ease 0s;
+    &.active{
+        transform: translate(0,0px);
+        opacity: 1;
+        transition: 1s all ease 0.4s;
+    }
 }
+
+//animation styles
+.animationRigth{
+    transform: translate(-60%,0);
+    opacity: 0;
+    transition: 0.8s all ease 0s;
+}
+.animationRigth.active,
+.active .animationRigth{
+    transform: translate(0,0);
+    opacity: 1;
+}
+.animationLeft{
+    transform: translate(60%,0);
+    opacity: 0;
+    transition: 0.8s all ease 0s;
+}
+.animationLeft.active,
+.active .animationLeft{
+    transform: translate(0,0);
+    opacity: 1;
+}
+.animationCenter{
+    transform: scale(0);
+    opacity: 0;
+    transition: 0.8s all ease 0s;
+}
+.animationCenter.active,
+.active .animationCenter{
+    transform: scale(1);
+    opacity: 1;
+}
+.animationBottom{
+    transform: translate(0,60%);
+    opacity: 0;
+    transition: 1s all ease 0.3s;
+}
+.animationBottom.active,
+.active .animationBottom{
+    transform: translate(0,0%);
+    opacity: 1;
+}
+
+//animation styles
 .fullscreen__subtitle {
     @include styleText(16px,30px ,400 ,'PT Sans');
     color: #707070;
     max-width: 655px;
     padding-bottom: 50px;
+    transform: translate(-60%,0);
+    opacity: 0;
+    transition: 0.8s all ease 0s;
+    &.active{
+        transform: translate(0,0px);
+        opacity: 1;
+        transition: 1s all ease 0.8s;
+    }
 }
 .fullscreen__bodyButtons {
     display: flex;
 }
+
+
+.fullscreen__button_about{
+    transform: scale(0);
+    opacity: 0;
+    transition: 0.8s all ease 0s;
+    &.active{
+        transform: scale(1);
+        opacity: 1;
+        transition: 1s all ease 1s;
+    }
+}
+.fullscreen__button_download{
+    transform: scale(0);
+    opacity: 0;
+    transition: 0.8s all ease 0s;
+    &.active{
+        transform: scale(1);
+        opacity: 1;
+        transition: 1s all ease 1s;
+    }
+}
+
+
 
 .button__about {
     color: #ffffff;
@@ -133,23 +253,20 @@ html,body{
     @include styleText(14px,22px ,400 ,'Roboto Slab');
 }
 
-//buttons <450px
-@media(max-width:450px){
-    .fullscreen__bodyButtons {
-        display: block;
-    }
-    .button__about {
-        margin-bottom: 20px;
-    }
-    .button__download {
-        margin-left: 0px;
-    }
-}
-
 //burger
 @media(max-width:876px){
     .fullscreen__main {
-        padding: 160px 0px;
+        padding: 130px 0px;
+    }
+    .header___body {
+        transform: none;
+        opacity: 1;
+        transition: none;
+        &.active{
+            transform: none;
+            opacity: 1;
+            transition: none;
+        }
     }
     .header__burger{       //делаем дизайн для меню
         display: block;
@@ -159,6 +276,15 @@ html,body{
         top: 7px;
         right: 10px;
         z-index: 6; //если нужно расположить выше других
+        //animation
+        transform: translate(160%,0);
+        opacity: 0;
+        transition: 0.8s all ease 0s;
+        &.active{
+            transform: translate(0,0px);
+            opacity: 1;
+            transition: 1s all ease 0.8s;
+        }
     }
     .header__burger span{
         position: absolute;     //создаем полоски
@@ -198,21 +324,21 @@ html,body{
         transition: 0.5s all ease;
         overflow: auto;     //чтобы скролить внутри меню если много элементов
     }
-    .header__menu.active{
+    .header__menu.activeBurger{
         top: 0;               //когда есть класс то сдвигаем меню, которое было сверху
     }
-    .header__burger.active::before{ //поворачиваем палочки
+    .header__burger.activeBurger::before{ //поворачиваем палочки
         transform: rotate(45deg);
         top: 12px;
     }
-    .header__burger.active::after{
+    .header__burger.activeBurger::after{
         transform: rotate(-45deg);
         bottom: 10px;
     }
-    .header__burger.active span{        //убираем центральную палку
+    .header__burger.activeBurger span{        //убираем центральную палку
         transform: scale(0)
     }
-    body.lock{
+    body.lockBurger{
         overflow: hidden;       //запрещаем скроллить когда открыто меню
     }
 
@@ -220,7 +346,7 @@ html,body{
     //style menu active
     .header__list {
         display: block;
-       & >div{
+       & > div{
         margin-bottom: 20px;
        }
        & a{
@@ -235,6 +361,22 @@ html,body{
         padding-bottom: 40px;
     }
 }
+//buttons <450px
+@media(max-width:450px){
+    .fullscreen__main {
+        padding: 60px 0px;
+    }
+    .fullscreen__bodyButtons {
+        display: block;
+    }
+    .button__about {
+        margin-bottom: 20px;
+    }
+    .button__download {
+        margin-left: 0px;
+    }
+}
+
 //about
 
 .about {
@@ -246,9 +388,12 @@ html,body{
     position: relative;
     display: flex;
 }
-.about__body{
-    margin-right: 80px;
+
+.anim-items {
 }
+.anim-show {
+}
+
 .about__miniTitle {
     @include styleText(22px,30px ,400 ,'Roboto Slab');
     color: #323232;
@@ -274,6 +419,7 @@ html,body{
         left: 0;
         bottom: -17px; 
     }
+    
 }
 
 .about__title {
@@ -396,7 +542,6 @@ html,body{
 }
 
 //services
-
 
 .services {
     background-color: #f5f6fb;
@@ -746,6 +891,9 @@ html,body{
     max-height: 260px;
     padding: 75px 15px;
 }
+.reviwes__item:first-child{
+
+}
 .item__img {
     margin-bottom: 25px;
     & img{
@@ -796,6 +944,8 @@ html,body{
 
 .contact {
     padding: 10px 10px 120px 10px;
+    max-width: 1380px;
+    margin: 0 auto;
 }
 .contact__flex{
     display: flex;
@@ -1092,6 +1242,9 @@ html,body{
 }
 .navigator__newsletter {
 }
+.newsletter__email{
+
+}
 .newsletter__name {
     @include styleText(14px,30px ,700 ,'Roboto Slab');
     position: relative;
@@ -1158,6 +1311,9 @@ html,body{
     height: 2px;
     background-color: rgba(0, 0, 0, 0.493);
     top: 15px;
+}
+.linkName.active{
+
 }
 .linkName.active::after{
     content: '';
